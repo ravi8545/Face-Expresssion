@@ -1,0 +1,117 @@
+// login.scss (Improved Version)
+
+$primary: #6c5ce7;
+$secondary: #00cec9;
+$bg: #f1f2f6;
+$text-dark: #2d3436;
+$text-light: #636e72;
+
+.login-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, $primary, $secondary);
+  font-family: 'Poppins', sans-serif;
+
+  .form-container {
+    background: #fff;
+    padding: 45px 35px;
+    border-radius: 20px;
+    width: 360px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    animation: fadeIn 0.6s ease-in-out;
+
+    h1 {
+      margin-bottom: 25px;
+      color: $primary;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+      text-align: left;
+
+      label {
+        font-size: 13px;
+        color: $text-light;
+        font-weight: 500;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        margin-top: 6px;
+        border: 1px solid #dfe6e9;
+        border-radius: 10px;
+        outline: none;
+        transition: all 0.3s ease;
+        font-size: 14px;
+
+        &:focus {
+          border-color: $primary;
+          box-shadow: 0 0 8px rgba(108, 92, 231, 0.4);
+          transform: scale(1.02);
+        }
+
+        &::placeholder {
+          color: #b2bec3;
+        }
+      }
+    }
+
+    .button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, $primary, $secondary);
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+
+    p {
+      margin-top: 18px;
+      font-size: 14px;
+      color: $text-light;
+
+      a {
+        color: $primary;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.3s;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+// animation 🔥
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

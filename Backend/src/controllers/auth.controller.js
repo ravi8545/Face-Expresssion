@@ -1,8 +1,10 @@
 const userModel = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const blacklistModel = require("../models/blacklist.model")
-const redis = require("../config/cache")
+const blacklistModel = require("../models/blacklist.model");
+const redis = require("../config/cache");
+
+
 async function registerUser(req, res) {
     const { username, email, password } = req.body;
 
@@ -52,34 +54,35 @@ async function registerUser(req, res) {
 async function loginUser(req, res) {
     const { email, password, username } = req.body;
 
+    let query = [];
+
+    if (email) query.push({ email });
+    if (username) query.push({ username });
+
     const user = await userModel.findOne({
-        $or: [
-            { email },
-            { username }
-        ]
+        $or: query
     }).select("+password");
+
     if (!user) {
         return res.status(400).json({
             message: "Invalid credentials"
-        })
+        });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
         return res.status(400).json({
-            message: "Inavalid credentials"
-        })
+            message: "Invalid credentials"
+        });
     }
 
     const token = jwt.sign({
         id: user._id,
         username: user.username
-    }, process.env.JWT_SECRET,
-        {
-            expiresIn: "3d"
-        }
-    )
+    }, process.env.JWT_SECRET, {
+        expiresIn: "3d"
+    });
 
     res.cookie("token", token);
 
@@ -90,11 +93,7 @@ async function loginUser(req, res) {
             username: user.username,
             email: user.email
         }
-    })
-
-
-
-
+    });
 }
 
 async function getMe(req, res) {
